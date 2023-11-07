@@ -1,0 +1,168 @@
+apiVersion: v1alpha1
+kind: AgentConfig
+metadata:
+  name: ocpmirror
+rendezvousIP: 192.168.10.21
+hosts:
+  - hostname: master1
+    role: master
+    interfaces:
+      - name: ens192
+        macAddress: 00:50:56:a2:5f:27
+    networkConfig:
+      interfaces:
+        - name: ens192
+          type: ethernet
+          state: up
+          mac-address: 00:50:56:a2:5f:27 
+          ipv4:
+            enabled: true
+            address:
+              - ip: 192.168.94.21
+                prefix-length: 24 
+            dhcp: false
+      dns-resolver:
+        config:
+          server:
+            - 8.8.8.8
+      routes:
+        config:
+          - destination: 0.0.0.0/0
+            next-hop-address: 192.168.10.1
+            next-hop-interface: ens192
+            table-id: 254
+  - hostname: master2
+    role: master
+    interfaces:
+      - name: ens192
+        macAddress: 00:50:56:a2:4c:30
+    networkConfig:
+      interfaces:
+        - name: ens192
+          type: ethernet
+          state: up
+          mac-address: 00:50:56:a2:4c:30
+          ipv4:
+            enabled: true
+            address:
+              - ip: 192.168.10.22
+                prefix-length: 24
+            dhcp: false
+      dns-resolver:
+        config:
+          server:
+            - 8.8.8.8
+      routes:
+        config:
+          - destination: 0.0.0.0/0
+            next-hop-address: 192.168.10.1
+            next-hop-interface: ens192
+            table-id: 254
+  - hostname: master3
+    role: master
+    interfaces:
+      - name: ens192
+        macAddress: 00:50:56:a2:2c:69 
+    networkConfig:
+      interfaces:
+        - name: ens192
+          type: ethernet
+          state: up
+          mac-address: 00:50:56:a2:2c:69
+          ipv4:
+            enabled: true
+            address:
+              - ip: 192.168.10.23
+                prefix-length: 24
+            dhcp: false
+      dns-resolver:
+        config:
+          server:
+            - 8.8.8.8
+      routes:
+        config:
+          - destination: 0.0.0.0/0
+            next-hop-address: 192.168.10.1
+            next-hop-interface: ens192
+            table-id: 254
+  - hostname: worker1
+    role: worker
+    interfaces:
+      - name: ens192
+        macAddress: 00:50:56:a2:bb:52 
+    networkConfig:
+      interfaces:
+        - name: ens192
+          type: ethernet
+          state: up
+          mac-address: 00:50:56:a2:bb:52
+          ipv4:
+            enabled: true
+            address:
+              - ip: 192.168.10.24
+                prefix-length: 24
+            dhcp: false
+      dns-resolver:
+        config:
+          server:
+            - 8.8.8.8
+      routes:
+        config:
+          - destination: 0.0.0.0/0
+            next-hop-address: 192.168.10.1
+            next-hop-interface: ens192
+            table-id: 254
+  - hostname: worker2
+    role: worker
+    interfaces:
+      - name: ens192
+        macAddress: 00:50:56:a2:d8:01 
+    networkConfig:
+      interfaces:
+        - name: ens192
+          type: ethernet
+          state: up
+          mac-address: 00:50:56:a2:d8:01
+          ipv4:
+            enabled: true
+            address:
+              - ip: 192.168.10.25
+                prefix-length: 24
+            dhcp: false
+      dns-resolver:
+        config:
+          server:
+            - 8.8.8.8
+      routes:
+        config:
+          - destination: 0.0.0.0/0
+            next-hop-address: 192.168.10.1
+            next-hop-interface: ens192
+            table-id: 254
+  - hostname: worker3
+    role: worker
+    interfaces:
+      - name: ens192
+        macAddress: 00:50:56:a2:3a:a2 
+    networkConfig:
+      interfaces:
+        - name: ens192
+          type: ethernet
+          state: up
+          mac-address: 00:50:56:a2:3a:a2
+          ipv4:
+            enabled: true
+            address:
+              - ip: 192.168.10.26
+                prefix-length: 24
+            dhcp: false
+      dns-resolver:
+        config:
+          server:
+            - 8.8.8.8
+      routes:
+        config:
+          - destination: 0.0.0.0/0
+            next-hop-address: 192.168.10.1
+            next-hop-interface: ens192
+            table-id: 254

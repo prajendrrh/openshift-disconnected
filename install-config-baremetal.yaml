@@ -1,0 +1,63 @@
+apiVersion: v1
+baseDomain: example.com
+compute:
+- architecture: amd64
+  hyperthreading: Enabled
+  name: worker
+  replicas: 3
+controlPlane:
+  architecture: amd64
+  hyperthreading: Enabled
+  name: master
+  replicas: 3
+metadata:
+  name: ocpmirror
+networking:
+  clusterNetwork:
+  - cidr: 10.128.0.0/14
+    hostPrefix: 23
+  machineNetwork:
+  - cidr: 192.168.10.0/24
+  networkType: OVNKubernetes
+  serviceNetwork:
+  - 172.30.0.0/16
+platform:
+  baremetal:
+    hosts:
+      - name: master1
+        role: master
+        bootMACAddress: 00:50:56:a2:5f:27
+      - name: master2
+        role: master
+        bootMACAddress: 00:50:56:a2:4c:30
+      - name: master3
+        role: master
+        bootMACAddress: 00:50:56:a2:2c:69
+      - name: worker1
+        role: worker
+        bootMACAddress: 00:50:56:a2:bb:52
+      - name: worker2
+        role: master
+        bootMACAddress: 00:50:56:a2:d8:01
+      - name: worker3
+        role: master
+        bootMACAddress: 00:50:56:a2:3a:a2
+    apiVIPs:
+    - 192.168.10.101
+    ingressVIPs:
+    - 192.168.10.102
+fips: false
+pullSecret: '{"auths":{"bastion.example.com:8443":{"auth":"aW5pdDo3SEZkcTM4NUE5RUcwbmdWV280Y0tlRHR4UnpwNjIxTg==","email":"email@example.com"}}}'
+sshKey: 'ssh-ed25519 .... root@bastion.example.com'
+imageContentSources:
+- mirrors:
+  - bastion.example.com:8443/openshift/release
+  source: quay.io/openshift-release-dev/ocp-v4.0-art-dev
+- mirrors:
+  - bastion.example.com:8443/openshift/release-images
+  source: quay.io/openshift-release-dev/ocp-release
+additionalTrustBundle: |
+  -----BEGIN CERTIFICATE-----
+  ...
+  ...
+  -----END CERTIFICATE-----

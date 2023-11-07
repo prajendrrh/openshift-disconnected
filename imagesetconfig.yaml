@@ -12,7 +12,7 @@ mirror:
       maxVersion: 4.13.18             # Maximum version of OpenShift to be mirrored
       shortestPath: true
       type: ocp
-    graph: true
+    graph: true                       # This parameter will be useful when updating the cluster in disconnected setup with OSUS operator
   operators:
   - catalog: registry.redhat.io/redhat/redhat-operator-index:v4.13 # Version of the operators catalog to be mirrored. 
   additionalImages:

@@ -1,0 +1,49 @@
+apiVersion: v1
+baseDomain: example.com
+compute:
+- architecture: amd64
+  hyperthreading: Enabled
+  name: worker
+  replicas: 3
+controlPlane:
+  architecture: amd64
+  hyperthreading: Enabled
+  name: master
+  replicas: 3
+metadata:
+  name: ocpmirror
+networking:
+  clusterNetwork:
+  - cidr: 10.128.0.0/14
+    hostPrefix: 23
+  machineNetwork:
+  - cidr: 192.168.10.0/24
+  networkType: OVNKubernetes
+  serviceNetwork:
+  - 172.30.0.0/16
+platform:
+  vsphere:
+    vCenter: a
+    username: b
+    password: c
+    datacenter: d
+    defaultDatastore: e
+      apiVIPs:
+        - 192.168.10.201
+      ingressVIPs:
+        - 192.168.10.202
+fips: false
+pullSecret: '{"auths":{"bastion.example.com:8443":{"auth":"aW5pdDo3SEZkcTM4NUE5RUcwbmdWV280Y0tlRHR4UnpwNjIxTg==","email":"email@example.com"}}}'
+sshKey: 'ssh-ed25519 ... root@bastion.example.com'
+imageContentSources:
+- mirrors:
+  - bastion.example.com:8443/openshift/release
+  source: quay.io/openshift-release-dev/ocp-v4.0-art-dev
+- mirrors:
+  - bastion.example.com:8443/openshift/release-images
+  source: quay.io/openshift-release-dev/ocp-release
+additionalTrustBundle: |
+  -----BEGIN CERTIFICATE-----
+  ...
+  ...
+  -----END CERTIFICATE-----

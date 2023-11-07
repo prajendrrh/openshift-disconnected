@@ -1,0 +1,20 @@
+kind: ImageSetConfiguration
+apiVersion: mirror.openshift.io/v1alpha2
+storageConfig:
+  registry:
+    imageURL: bastion.j9287.dynamic.opentlc.com:8443/mirror/oc-mirror-metadata # Local mirror registry URL
+    skipTLS: false
+mirror:
+  platform:
+    channels:
+    - name: stable-4.13               # Version of OpenShift to be mirrored
+      minVersion: 4.13.17             # Minimum version of OpenShift to be mirrored
+      maxVersion: 4.13.18             # Maximum version of OpenShift to be mirrored
+      shortestPath: true
+      type: ocp
+    graph: true
+  operators:
+  - catalog: registry.redhat.io/redhat/redhat-operator-index:v4.13 # Version of the operators catalog to be mirrored. 
+  additionalImages:
+  - name: registry.redhat.io/ubi8/ubi:latest
+  helm: {}
